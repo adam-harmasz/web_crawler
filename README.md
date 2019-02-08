@@ -32,6 +32,6 @@ and then script will try to access all the links and repeat process excluding li
 After all of the links were accessed, script will write result in the terminal in a form of python dictionary.  
 - Technologies used:
     - Python 3.7.0
-    - requests
-    - beautifulsoup4
+        - requests
+        - beautifulsoup4
 

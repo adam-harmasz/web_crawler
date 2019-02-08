@@ -26,7 +26,7 @@ def site_map(args):
     result = dict()
     links_checked = set()
     links_to_check = set()
-    res = requests.get(url) # get html from the website
+    res = requests.get(url)  # get html from the website
     links_checked.add(url)
     is_it_last_page = False
 
@@ -53,7 +53,7 @@ def site_map(args):
             links_checked.add(url)
             for link in set_of_links:
                 # checking if the link(url) was already used
-                if not link in links_checked and not link in links_to_check:
+                if link not in links_checked and not link in links_to_check:
                     links_to_check.add(link)
             # checking if all links was checked
             if len(links_to_check) == 0:
