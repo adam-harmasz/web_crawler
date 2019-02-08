@@ -1,5 +1,6 @@
-import argparse
 import sys
+import argparse
+import time
 from bs4 import BeautifulSoup as bs
 import requests
 import re
@@ -21,6 +22,7 @@ def set_args():
 
 def site_map(args):
     """Main function to map website"""
+    sys.stdout.write('Work in progress \n')
     url = args.url
     result = dict()
     links_checked = set()
@@ -31,6 +33,7 @@ def site_map(args):
 
     # loop to access every link in the website
     while not is_it_last_page:
+        # animate(is_it_last_page)
         if len(res.text) == 0:
             print('error message')
         else:
