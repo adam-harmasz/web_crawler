@@ -1,6 +1,5 @@
 import sys
 import argparse
-import time
 from bs4 import BeautifulSoup as bs
 import requests
 import re
