@@ -1,10 +1,6 @@
 ## WEB CRAWLER
 
-This python script will create map of the website in a form of Python dictionary which will be printed in the terminal when the process is over.  
-Technologies used:
-- Python 3.7.0
-- requests
-- beautifulsoup4
+This python script will create map of the website in a form of Python dictionary which will be printed in the terminal when the process is over.   
 
 
 ### GETTING STARTED
@@ -33,5 +29,9 @@ or optionally
 
 - This script will find all the a tags and define which of them are external(using regular expression) 
 and then script will try to access all the links and repeat process excluding links which were already checked.
-After all of the links were accessed, script will write result in the terminal in a form of python dictionary.
+After all of the links were accessed, script will write result in the terminal in a form of python dictionary.  
+- Technologies used:
+    - Python 3.7.0
+    - requests
+    - beautifulsoup4
 
