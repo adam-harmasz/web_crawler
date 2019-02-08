@@ -348,4 +348,5 @@ gomoku/media/
 .var_envs
 
 scratch.py
+*.txt
 

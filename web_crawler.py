@@ -1,14 +1,31 @@
+import argparse
+import sys
 from bs4 import BeautifulSoup as bs
 import requests
 import re
 
 
-def site_map(url):
+def set_args():
+    """Setting argaparse variables"""
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-u", "--url",
+        help="Specify url",
+        dest='url',
+        type=str,
+        required=True,
+    )
+    args = parser.parse_args()
+    return args
+
+
+def site_map(args):
     """Main function to map website"""
+    url = args.url
     result = dict()
     links_checked = set()
     links_to_check = set()
-    res = requests.get(url)
+    res = requests.get(url) # get html from the website
     links_checked.add(url)
     is_it_last_page = False
 
@@ -17,21 +34,29 @@ def site_map(url):
         if len(res.text) == 0:
             print('error message')
         else:
+            # creating beautifulcoup object
             soup = bs(res.text, features='lxml')
+            # getting list of all 'a' tags
             a_list = soup.find_all('a')
-            page_title = soup.title.text
+            # getting title of the page if it exists
+            if soup.title:
+                page_title = soup.title.text
             set_of_links = get_links(a_list, url)
+            # storing data in dictionary
             result[url] = {
                 'title': page_title,
                 'links': set_of_links
             }
+            # adding url to the checked ones so loop will not be infinite
             links_checked.add(url)
             for link in set_of_links:
+                # checking if the link(url) was already used
                 if not link in links_checked and not link in links_to_check:
                     links_to_check.add(link)
+            # checking if all links was checked
             if len(links_to_check) == 0:
-                print('uwaga wynik!!!\n\n', result)
-                quit()
+                sys.stdout.write('\n' + str(result) + '\n')
+                is_it_last_page = True
             else:
                 url = links_to_check.pop()
                 res = requests.get(url)
@@ -46,11 +71,19 @@ def get_links(link_list, url):
     # extracting domain from the given url
     domain = extract_domain(url)
     result = set()
+
     for link in link_list:
-        if link.get('href')[0] == '/':
-            result.add(domain + link.get('href'))
-        elif extract_domain(link.get('href')) == domain:
-            result.add(link.get('href'))
+        try:
+            # checking if link is not a None value
+            if link.get('href') is not None and len(link.get('href')):
+                # if link starts with /, domain url will be added
+                if link.get('href')[0] == '/':
+                    result.add(domain + link.get('href'))
+                elif extract_domain(link.get('href')) == domain:
+                    result.add(link.get('href'))
+        except AttributeError:
+            # sys.stderr.write('empty link\n')
+            pass
     return result
 
 
@@ -67,4 +100,4 @@ def extract_domain(url):
 
 
 if __name__ == '__main__':
-    site_map('http://0.0.0.0:8000/')
+    site_map(set_args())
