@@ -27,9 +27,11 @@ Technologies used:
 ### USAGE
 
 - Using this script is very simple you need to just type this command:  
-`python main.py -u http://your-website.com`  
+`python web_crawler.py -u http://your-website.com`  
 or optionally  
-`python main.py --url http://your-website.com`  
+`python web_crawler.py --url http://your-website.com`  
 
-- Script will 
+- This script will find all the a tags and define which of them are external(using regular expression) 
+and then script will try to access all the links and repeat process excluding links which were already checked.
+After all of the links were accessed, script will write result in the terminal in a form of python dictionary.
 

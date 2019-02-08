@@ -34,7 +34,7 @@ def site_map(args):
     while not is_it_last_page:
         # animate(is_it_last_page)
         if len(res.text) == 0:
-            print('error message')
+            sys.stderr.write('No content')
         else:
             # creating beautifulcoup object
             soup = bs(res.text, features='lxml')
@@ -91,7 +91,7 @@ def get_links(link_list, url):
 
 def extract_domain(url):
     """
-    Function extracting domain url from the given one in case it's subpage
+    Function extracting domain url from the given one in case it's a subpage
     example input url: https://github.com/henryy07/web_crawler
     example output url: https://github.com
     """
