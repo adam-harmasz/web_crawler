@@ -1,6 +1,6 @@
 ## WEB CRAWLER
 
-This python script will create map of the website in a form of Python dictionary which will be printed in the terminal when the process is over.
+This python script will create map of the website in a form of Python dictionary which will be printed in the terminal when the process is over.  
 Technologies used:
 - Python 3.7.0
 - requests
