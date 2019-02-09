@@ -40,7 +40,9 @@ def site_map(args):
             soup = bs(res.text, features='lxml')
             # getting list of all 'a' tags
             a_list = soup.find_all('a')
+            print(a_list)
             # getting title of the page if it exists
+            page_title = ''
             if soup.title:
                 page_title = soup.title.text
             set_of_links = get_links(a_list, url)
@@ -84,8 +86,8 @@ def get_links(link_list, url):
                 elif extract_domain(link.get('href')) == domain:
                     result.add(link.get('href'))
         except AttributeError:
-            # sys.stderr.write('empty link\n')
-            pass
+            sys.stderr.write('empty link\n')
+
     return result
 
 
