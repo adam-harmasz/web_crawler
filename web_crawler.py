@@ -32,7 +32,6 @@ def site_map(args):
 
     # loop to access every link in the website
     while not is_it_last_page:
-        # animate(is_it_last_page)
         if len(res.text) == 0:
             sys.stderr.write('No content')
         else:
@@ -40,7 +39,6 @@ def site_map(args):
             soup = bs(res.text, features='lxml')
             # getting list of all 'a' tags
             a_list = soup.find_all('a')
-            print(a_list)
             # getting title of the page if it exists
             page_title = ''
             if soup.title:
@@ -55,11 +53,11 @@ def site_map(args):
             links_checked.add(url)
             for link in set_of_links:
                 # checking if the link(url) was already used
-                if link not in links_checked and not link in links_to_check:
+                if link not in links_checked and link not in links_to_check:
                     links_to_check.add(link)
             # checking if all links was checked
             if len(links_to_check) == 0:
-                sys.stdout.write('\n' + str(result) + '\n')
+                sys.stdout.write('\nYour result:\n' + str(result) + '\n')
                 is_it_last_page = True
             else:
                 url = links_to_check.pop()
