@@ -1,8 +1,8 @@
 import sys
 import argparse
+import re
 from bs4 import BeautifulSoup as bs
 import requests
-import re
 
 
 def set_args():
@@ -32,10 +32,10 @@ def site_map(args):
 
     # loop to access every link in the website
     while not is_it_last_page:
-        if len(res.text) == 0:
+        if not res.text:
             sys.stderr.write('No content')
         else:
-            # creating beautifulcoup object
+            # creating beautifulsoup object
             soup = bs(res.text, features='lxml')
             # getting list of all 'a' tags
             a_list = soup.find_all('a')
@@ -56,7 +56,7 @@ def site_map(args):
                 if link not in links_checked and link not in links_to_check:
                     links_to_check.add(link)
             # checking if all links was checked
-            if len(links_to_check) == 0:
+            if not links_to_check:
                 sys.stdout.write('\nYour result:\n' + str(result) + '\n')
                 is_it_last_page = True
             else:
@@ -77,7 +77,7 @@ def get_links(link_list, url):
     for link in link_list:
         try:
             # checking if link is not a None value
-            if link.get('href') is not None and len(link.get('href')):
+            if link.get('href') is not None and link.get('href'):
                 # if link starts with /, domain url will be added
                 if link.get('href')[0] == '/':
                     result.add(domain + link.get('href'))
@@ -85,7 +85,6 @@ def get_links(link_list, url):
                     result.add(link.get('href'))
         except AttributeError:
             sys.stderr.write('empty link\n')
-
     return result
 
 
